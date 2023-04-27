@@ -81,3 +81,7 @@
 .modal_hidden {
   visibility: hidden;
 }
+
+.btn_container {
+  text-align: center;
+}

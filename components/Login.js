@@ -1,8 +1,9 @@
 import styles from "../styles/Login.module.css";
 
+function Login() {
+
   return (
     <div>
-      {!isSignupModalVisible && <Signup />}
 
       <main className={styles.main}>
         <div className={styles.title}>
@@ -48,5 +49,6 @@ import styles from "../styles/Login.module.css";
     </div>
   );
 }
+
 
 export default Login;
