@@ -12,7 +12,6 @@
   grid-column-start: 1;
   grid-column-end: 6;
   background-image: url('/images/background-login.png');
-  background-color: aquamarine;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -70,6 +69,13 @@
   font-family: 'MontHeavy';
   color: white;
 }
+
+.textmiddle {
+  font-family: 'MontHeavy';
+  color: white;
+  font-size: 38px;
+}
+
 
 .toptext {
   font-family: 'MontHeavy';

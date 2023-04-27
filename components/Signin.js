@@ -1,8 +1,8 @@
-// import styles from "../styles/Signin.module.css";
+import styles from "../styles/Signin.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-function Signin() {
+function Signin(props) {
   const dispatch = useDispatch();
   const [signInUsername, setSignInUsername] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
@@ -22,32 +22,46 @@ function Signin() {
           console.log("username:", data);
           setSignInUsername("");
           setSignInPassword("");
-          //   setIsModalVisible(false);
         }
       });
   };
 
+  const handleclose = () => {
+    props.closeModal();
+  };
+
   return (
-    <div>
-      <img src="/images/twitter-logo.png" alt="logo" />
-      <p>Connect to Hackatweet</p>
-      <input
-        type="text"
-        placeholder="Username"
-        id="signInUsername"
-        onChange={(e) => setSignInUsername(e.target.value)}
-        value={signInUsername}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        id="signInPassword"
-        onChange={(e) => setSignInPassword(e.target.value)}
-        value={signInPassword}
-      />
-      <button id="connection" onClick={() => handleConnection()}>
-        Sign in
-      </button>
+    <div className={styles.popup_box}>
+      <div className={styles.box}>
+        <div className={styles.content_button}>
+          <button className={styles.btn_close} onClick={() => handleclose()}>
+            x
+          </button>
+        </div>
+        <img className={styles.logo} src="/images/twitter-logo.png"></img>
+        <p className={styles.h1}>Connect to Hackatweet</p>
+        <div className={styles.btn}>
+          <input
+            className={styles.inputs}
+            type="text"
+            placeholder="Username"
+            id="signInUsername"
+            onChange={(e) => setSignInUsername(e.target.value)}
+            value={signInUsername}
+          />
+          <input
+            className={styles.inputs}
+            type="password"
+            placeholder="Password"
+            id="signInPassword"
+            onChange={(e) => setSignInPassword(e.target.value)}
+            value={signInPassword}
+          />
+          <button className={styles.signin} id="signin" onClick={() => handleConnection()}>
+            Sign in
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
