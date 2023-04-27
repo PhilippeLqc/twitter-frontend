@@ -1,0 +1,30 @@
+.main {
+    padding: 15px;
+    border-bottom: 0.5px solid grey;
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    justify-content: flex-start;
+}
+
+.middle {
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    align-items: center ;
+}
+
+.likes {
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+}

@@ -2,8 +2,38 @@ import styles from "../styles/Home.module.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import Tweet from "./Tweet";
 
 function Home() {
+
+  const [inputTweet, setInputTweet] = useState("");
+
+  let date = new Date
+
+  console.log("date", date)
+
+  function handleTweet () {
+
+  
+
+    fetch('http://localhost:3000/tweets/add', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ username: signInUsername, password: signInPassword }),
+		}).then(response => response.json())
+			.then(data => {
+				if (data.result) {
+					dispatch(login({ username: signInUsername, token: data.token }));
+					setSignInUsername('');
+					setSignInPassword('');
+					setIsModalVisible(false)
+				}
+			});
+	};
+  
+   
+
+
   return (
     <main className={styles.main}>
       <div className={styles.content_left}>
@@ -37,19 +67,27 @@ function Home() {
               type="text"
               placeholder="Whats'up?"
               id="signUpUsername"
+              onChange={(e) => setInputTweet(e.target.value)}
+              value={inputTweet}
             />
-            </div>
-            <div className={styles.home_bottom}>
-                <p>16/280</p>
-                <button id="tweet">Tweet</button>
-            </div>
-          
-          <div className={styles.tweets_container}></div>
+          </div>
+          <div className={styles.home_bottom}>
+            <p>16/280</p>
+            <button 
+            onClick={() => handleTweet ()}
+            id="tweet">Tweet</button>
+          </div>
+        </div>
+        <div className={styles.tweets_container}>
+          {" "}
+          <Tweet />
         </div>
       </div>
       <div className={styles.content_right}>
         <p className={styles.trends}>Trends</p>
-        <div className={styles.hashtag_container}>Je suis un joli petit test</div>
+        <div className={styles.hashtag_container}>
+          Je suis un joli petit test
+        </div>
       </div>
     </main>
   );
