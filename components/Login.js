@@ -1,11 +1,16 @@
 import styles from "../styles/Login.module.css";
-import Signin from "./Signin";
 
-function Home() {
   return (
     <div>
+      {!isSignupModalVisible && <Signup />}
+
       <main className={styles.main}>
         <div className={styles.title}>
+          <img
+            src="/images/twitter-logo.png"
+            alt="logo"
+            className={styles.logoleft}
+          />
           <img
             src="/images/twitter-logo.png"
             alt="logo"
@@ -14,6 +19,14 @@ function Home() {
         </div>
 
         <div className={styles.right}>
+          <img
+            src="/images/twitter-logo.png"
+            alt="logo"
+            className={styles.logo}
+          />
+          <p className={styles.text + " " + styles.toptext}>
+            See what's happening
+          </p>
           <img
             src="/images/twitter-logo.png"
             alt="logo"
@@ -36,4 +49,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Login;
