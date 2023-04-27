@@ -28,10 +28,12 @@ function Signin(props) {
         }
       });
   };
-console.log('user:', user)
   const handleclose = () => {
     props.closeModal();
   };
+
+  console.log('user:', user)
+
 
   return (
     <div className={styles.popup_box}>
