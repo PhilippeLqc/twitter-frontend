@@ -1,9 +1,11 @@
 import styles from "../styles/Signin.module.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../reducers/user";
 
 function Signin(props) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
   const [signInUsername, setSignInUsername] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
 
@@ -19,13 +21,14 @@ function Signin(props) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log("username:", data);
+        console.log('data:', data)
+          dispatch(login(data.token));
           setSignInUsername("");
           setSignInPassword("");
         }
       });
   };
-
+console.log('user:', user)
   const handleclose = () => {
     props.closeModal();
   };
@@ -57,7 +60,11 @@ function Signin(props) {
             onChange={(e) => setSignInPassword(e.target.value)}
             value={signInPassword}
           />
-          <button className={styles.signin} id="signin" onClick={() => handleConnection()}>
+          <button
+            className={styles.signin}
+            id="signin"
+            onClick={() => handleConnection()}
+          >
             Sign in
           </button>
         </div>
