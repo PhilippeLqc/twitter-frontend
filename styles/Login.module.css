@@ -52,7 +52,7 @@
   border-color: white;
   border-width: 1px;
 }
-
+/* jfjf */
 .logo{
   display: flex;
   height: 50px;
@@ -76,4 +76,8 @@
   color: white;
   font-weight: 800;
   font-size: 85px;
+}
+
+.modal_hidden {
+  visibility: hidden;
 }
