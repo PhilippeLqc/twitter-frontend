@@ -1,17 +1,34 @@
 import styles from "../styles/Login.module.css";
+import Signup from "../components/Signup";
+import { useState } from "react";
 
-function Home() {
+function Login() {
+
+  const [isSignupModalVisible, setIsSignupModalVisible] = useState(false);
+
+
   return (
     <div>
-      <main className={styles.main}>
+      {!isSignupModalVisible && <Signup />}
 
+      <main className={styles.main}>
         <div className={styles.title}>
-        <img src="/images/twitter-logo.png" alt="logo" className={styles.logoleft}/>
+          <img
+            src="/images/twitter-logo.png"
+            alt="logo"
+            className={styles.logoleft}
+          />
         </div>
 
         <div className={styles.right}>
-          <img src="/images/twitter-logo.png" alt="logo" className={styles.logo}/>
-          <p className={styles.text + ' ' + styles.toptext}>See what's happening</p>
+          <img
+            src="/images/twitter-logo.png"
+            alt="logo"
+            className={styles.logo}
+          />
+          <p className={styles.text + " " + styles.toptext}>
+            See what's happening
+          </p>
           <p className={styles.text}>Join Hackatweet today</p>
           <button id="signup" className={styles.signup}>
             Sign up
@@ -21,10 +38,9 @@ function Home() {
             Sign in
           </button>
         </div>
-
       </main>
     </div>
   );
 }
 
-export default Home;
+export default Login;
