@@ -1,0 +1,22 @@
+.trends {
+    margin: 10px;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.hashtags{
+    display: flex;
+    font-weight: 800;
+    line-height: 1;
+    font-size: 20px;
+}
+
+.count{
+    display: flex;
+    font-weight: 700;
+    color: rgb(78, 78, 100);
+    line-height: 1;
+    font-size: 15px;
+}
