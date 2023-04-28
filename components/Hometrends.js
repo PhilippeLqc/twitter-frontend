@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import Tweet from "./Tweet";
+import TweetTrends from "./TweetTrends";
 import Trends from "./Trends";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../reducers/user";
+
 
 function Hometrends() {
   const [username, setusername] = useState("");
@@ -14,6 +16,8 @@ function Hometrends() {
   const [inputTweet, setInputTweet] = useState("");
   const [hashtags, sethashtags] = useState([]);
   const [id, setId] = useState("");
+  const [filteredTweets, setFilteredTweets] = useState([]);
+
   const user = useSelector((state) => state.user.value);
 
   const router = useRouter();
@@ -54,7 +58,29 @@ function Hometrends() {
       });
   }, []);
 
-  console.log('hashtags', hashtags);
+  const handleSearch = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+
+    const filtered = hashtags.filter(hashtag => hashtag.hashtag === searchTerm);
+    console.log("hashtag tweets", filtered)
+  
+    setFilteredTweets(filtered);
+
+  };
+
+
+
+  const finalTweets = filteredTweets.map((data, i) => (
+  (data)))
+
+  const tweetsArray = finalTweets.map(obj => obj.tweets);
+
+  
+    const tweetsTrends = tweetsArray.map((data, i) => {
+     return <TweetTrends key={i} {...data}  />})
+
+console.log("tweetTrends",tweetsTrends)
+
 
 
   return (
@@ -98,12 +124,12 @@ function Hometrends() {
               type="text"
               placeholder="research"
               id="signUpUsername"
-              onChange={(e) => setInputTweet(e.target.value)}
-              value={inputTweet}
+              onChange={(e) => handleSearch(e)}
+              // value={inputTweet}
             />
           </div>
         </div>
-        <div className={styles.tweets_container}> AFFICHER TWEETTRENDS</div>
+        <div className={styles.tweets_container}>{tweetsTrends}</div>
       </div>
       <div className={styles.content_right}>
         <p className={styles.trends}>Trends</p>

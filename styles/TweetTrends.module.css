@@ -1,0 +1,59 @@
+.main {
+    padding: 15px;
+    border-bottom: solid 0.3px rgb(47, 48, 75);
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    justify-content:left;
+    align-items: center;
+}
+
+.firstname {
+color: white;
+font-weight: bold;
+margin: 2px;
+}
+
+.username {
+color: rgb(78, 78, 100);
+font-weight: 500;
+margin: 2px;
+}
+
+.time {
+color: rgb(78, 78, 100);
+font-weight: 500;
+margin: 2px;
+}
+
+.middle {
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.likes {
+    display: flex;
+    flex-direction: row;
+    margin-right: 30px;
+
+}
+
+.count{
+    margin:0;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: flex;
+    line-height: 1;
+}
