@@ -21,6 +21,7 @@ function Tweet(props) {
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.user.value);
+  const Isdeleted = useSelector((state) => state.deleted.value);
 
   // crée un variable timediff conditionnelle selon le temps (en min, hours, jours)
 
@@ -47,7 +48,44 @@ function Tweet(props) {
       });
   }
 
-  // const qui gère l'affichage de l'icone poubelle
+  const handleLike = (props) => {
+    fetch("http://localhost:3000/users/getUser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        token: token,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (!props.like.includes(data.data._id)) {
+          console.log("data:", data.data._id);
+          fetch(`http://localhost:3000/tweets/like/${props._id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ authorId: data.data._id }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("result:", data);
+              console.log("prosId:", props._id);
+            });
+        } else {
+          console.log('elseData:', data.data._id);
+          fetch(`http://localhost:3000/tweets/deletelike/${props._id}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ authorId: data.data._id }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("likecollection:", data);
+            });
+        }
+      });
+  };
+
+  // const qui gère l'affichage de l'icone poubelle et coeur
 
   const showTrashIcon = props.user.token === token;
   let heartIconStyle = { cursor: "pointer", color: "#ffffff" };
@@ -72,24 +110,23 @@ function Tweet(props) {
         <p className={styles.time}>· {timeDiff}</p>
       </div>
       <div className={styles.middle}>
-        <p>
-          {props.message}
-        </p>
+        <p>{props.message}</p>
       </div>
       <div className={styles.bottom}>
         <div className={styles.likes}>
           <FontAwesomeIcon
             icon={faHeart}
-            style={ heartIconStyle }
+            style={heartIconStyle}
+            onClick={() => handleLike(props)}
           />
-          <p className={styles.count}>0</p>
-        {showTrashIcon && (
-          <FontAwesomeIcon
-            onClick={() => handleDelete(props)}
-            icon={faTrashCan}
-            style={{ color: "#ffffff" }}
-          />
-        )}
+          <p className={styles.count}>{props.like.length}</p>
+          {showTrashIcon && (
+            <FontAwesomeIcon
+              onClick={() => handleDelete(props)}
+              icon={faTrashCan}
+              style={{ color: "#ffffff" }}
+            />
+          )}
         </div>
       </div>
     </div>
