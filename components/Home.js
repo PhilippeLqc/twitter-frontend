@@ -109,7 +109,8 @@ function Home() {
   };
 
   const handleTrends = () => {
-    
+    router.push("/hometrends");
+    console.log('foncitonne')
   }
 
 
@@ -173,8 +174,8 @@ function Home() {
       </div>
       <div className={styles.content_right}>
         <p className={styles.trends}>Trends</p>
-        <div className={styles.hashtag_container}>
-          <Trends />
+        <div className={styles.hashtag_container} onClick={() => handleTrends()}>
+          <Trends/>
         </div>
       </div>
     </main>

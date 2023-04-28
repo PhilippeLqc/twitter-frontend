@@ -52,9 +52,9 @@ useEffect(() => {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (props.like.includes(data.data._id)) {
-        setHeartIconStyle({ color: "#e74c3c", cursor: "pointer" });
-      }
+      // if (props.like.includes(data.data._id)) {
+      //   setHeartIconStyle({ color: "#e74c3c", cursor: "pointer" });
+      // }
     });
   }, [])
   //   fonction qui gere la suppression d'un tweet au clic sur l'icone poubelle
@@ -69,45 +69,45 @@ useEffect(() => {
       });
   }
 
-  const handleLike = (props) => {
-    fetch("http://localhost:3000/users/getUser", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: token,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (!props.like.includes(data.data._id)) {
-          console.log("data:", data.data._id);
-          fetch(`http://localhost:3000/tweets/like/${props._id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ authorId: data.data._id }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("result:", data);
-              console.log("prosId:", props._id);
-            });
-          setHeartIconStyle({ color: "#e74c3c", cursor: "pointer" });
-        } else {
-          console.log("elseData:", data.data._id);
-          fetch(`http://localhost:3000/tweets/deletelike/${props._id}`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ authorId: data.data._id }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("likecollection:", data);
-            });
-          setHeartIconStyle({ cursor: "pointer", color: "#ffffff" });
-        }
-        dispatch(addLiked());
-      });
-  };
+  // const handleLike = (props) => {
+  //   fetch("http://localhost:3000/users/getUser", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       token: token,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (!props.like.includes(data.data._id)) {
+  //         console.log("data:", data.data._id);
+  //         fetch(`http://localhost:3000/tweets/like/${props._id}`, {
+  //           method: "PUT",
+  //           headers: { "Content-Type": "application/json" },
+  //           body: JSON.stringify({ authorId: data.data._id }),
+  //         })
+  //           .then((response) => response.json())
+  //           .then((data) => {
+  //             console.log("result:", data);
+  //             console.log("prosId:", props._id);
+  //           });
+  //         setHeartIconStyle({ color: "#e74c3c", cursor: "pointer" });
+  //       } else {
+  //         console.log("elseData:", data.data._id);
+  //         fetch(`http://localhost:3000/tweets/deletelike/${props._id}`, {
+  //           method: "DELETE",
+  //           headers: { "Content-Type": "application/json" },
+  //           body: JSON.stringify({ authorId: data.data._id }),
+  //         })
+  //           .then((response) => response.json())
+  //           .then((data) => {
+  //             console.log("likecollection:", data);
+  //           });
+  //         setHeartIconStyle({ cursor: "pointer", color: "#ffffff" });
+  //       }
+  //       dispatch(addLiked());
+  //     });
+  // };
   // const qui gère l'affichage de l'icone poubelle et coeur
 
   
@@ -148,7 +148,7 @@ useEffect(() => {
         <p className={styles.time}>· {timeDiff}</p>
       </div>
       <div className={styles.middle}>
-        <p>{props.message}</p>
+        <p>{props[0].message}</p>
       </div>
       <div className={styles.bottom}>
         <div className={styles.likes}>
@@ -157,14 +157,14 @@ useEffect(() => {
             style={heartIconStyle}
             onClick={() => handleLike(props)}
           />
-          <p className={styles.count}>{props.like.length}</p>
-          {showTrashIcon && (
+          <p className={styles.count}>0</p>
+          {/* {showTrashIcon && ( */}
             <FontAwesomeIcon
               onClick={() => handleDelete(props)}
               icon={faTrashCan}
               style={{ color: "#ffffff" }}
             />
-          )}
+          {/* )} */}
         </div>
       </div>
     </div>

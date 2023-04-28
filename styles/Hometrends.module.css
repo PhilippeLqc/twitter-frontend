@@ -141,7 +141,8 @@
     border-bottom: 1px solid rgb(47, 48, 75);
     margin: 5%;
     margin-top: 0;
-    padding: 30px;
+    padding-left: 100px;
+    padding-right: 100px;
     font-size: 20px;
     font-weight: 700;
     color: white;

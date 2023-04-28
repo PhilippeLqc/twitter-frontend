@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../reducers/user";
 
-
 function Hometrends() {
   const [username, setusername] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -48,12 +47,11 @@ function Hometrends() {
       });
   }, []);
 
-
   useEffect(() => {
     fetch("http://localhost:3000/hashtags/getHashtags")
       .then((response) => response.json())
       .then((data) => {
-        // console.log('data', data);
+        console.log('data', data);
         sethashtags(data);
       });
   }, []);
@@ -61,23 +59,22 @@ function Hometrends() {
   const handleSearch = (e) => {
     const searchTerm = e.target.value.toLowerCase();
 
-    const filtered = hashtags.filter(hashtag => hashtag.hashtag === searchTerm);
-    console.log("hashtag tweets", filtered)
+const filtered = hashtags.filter(hashtag => hashtag.hashtag === searchTerm);
+console.log("hashtag tweets", filtered)
   
-    setFilteredTweets(filtered);
-
+setFilteredTweets(filtered);
   };
-
-
 
   const finalTweets = filteredTweets.map((data, i) => (
   (data)))
 
   const tweetsArray = finalTweets.map(obj => obj.tweets);
 
-  
+
     const tweetsTrends = tweetsArray.map((data, i) => {
      return <TweetTrends key={i} {...data}  />})
+
+console.log("tweetTrends",tweetsTrends)
 
   return (
     <main className={styles.main}>
@@ -112,15 +109,16 @@ function Hometrends() {
       <div className={styles.content_middle}>
         <div className={styles.home_container}>
           <div className={styles.title_middle_container}>
-            <p className={styles.title_middle}></p>
+            <p className={styles.title_middle}>Trends</p>
           </div>
-          <input
+          <div className={styles.input_container}>
+            <input
               className={styles.input_tweet}
               type="text"
               placeholder="research"
               id="signUpUsername"
               onChange={(e) => handleSearch(e)}
-              value={inputTweet}
+              // value={inputTweet}
             />
           </div>
         </div>
@@ -132,7 +130,8 @@ function Hometrends() {
           <Trends />
         </div>
       </div>
-    </main>);
-  }
+    </main>
+  );
+}
 
 export default Hometrends;
