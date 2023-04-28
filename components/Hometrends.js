@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Hometrends.module.css";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
@@ -49,13 +49,16 @@ function Hometrends() {
     fetch("http://localhost:3000/hashtags/getHashtags")
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data);
+        // console.log('data', data);
         sethashtags(data);
       });
   }, []);
 
-  console.log('hashtags', hashtags);
+  console.log('prop', hashtags.tweets);
 
+  const tweet = hashtags.map((data, i) => {
+    return <Tweet key={i} {...data} />;
+  });
 
   return (
     <main className={styles.main}>
@@ -90,10 +93,11 @@ function Hometrends() {
       <div className={styles.content_middle}>
         <div className={styles.home_container}>
           <div className={styles.title_middle_container}>
-            <p className={styles.title_middle}>Trends</p>
+            <p className={styles.title_middle}>
+                {/* {tweet} */}
+            </p>
           </div>
-          <div className={styles.input_container}>
-            <input
+          <input
               className={styles.input_tweet}
               type="text"
               placeholder="research"
@@ -101,7 +105,6 @@ function Hometrends() {
               onChange={(e) => setInputTweet(e.target.value)}
               value={inputTweet}
             />
-          </div>
         </div>
         <div className={styles.tweets_container}> AFFICHER TWEETTRENDS</div>
       </div>
