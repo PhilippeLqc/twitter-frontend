@@ -105,7 +105,6 @@ useEffect(() => {
         dispatch(addLiked());
       });
   };
-  console.log("coeur", heartIconStyle);
   // const qui gère l'affichage de l'icone poubelle et coeur
 
   const showTrashIcon = props.user.token === token;
