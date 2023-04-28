@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import Tweet from "./Tweet";
+import Trends from "./Trends";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../reducers/user";
+import { login, logout } from "../reducers/user";
 
 function Home() {
+  const router = useRouter();
   const [inputTweet, setInputTweet] = useState("");
   const [username, setusername] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -84,25 +87,44 @@ function Home() {
     return <Tweet key={i} {...data} />;
   });
 
+// Bouton logout / déconnexion
+
+  const handleHome = () => {
+    router.push("/homepage");
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push("/login");
+  };
+
 
 
   return (
     <main className={styles.main}>
       <div className={styles.content_left}>
-        <img className={styles.logo} src="/images/twitter-logo.png" />
+        <img
+          className={styles.logo}
+          src="/images/twitter-logo.png"
+          onClick={() => handleHome()}
+        />
         <div>
           <div className={styles.left_bottom}>
             <FontAwesomeIcon
               icon={faUserCircle}
-              style={{ color: "#47a4cd", width: "20%", height: "auto" }}
+              style={{ color: "#47a4cd", width: "50px", height: "auto" }}
             />
             <div className={styles.userinfo_bottom}>
-              <p className={styles.firstname}>Paul</p>
-              <p className={styles.username}>@username</p>
+              <p className={styles.firstname}>{firstname}</p>
+              <p className={styles.username}>@{username}</p>
             </div>
           </div>
           <div className={styles.btn_container}>
-            <button id="signup" className={styles.signup}>
+            <button
+              id="signup"
+              className={styles.logout}
+              onClick={() => handleLogout()}
+            >
               Logout
             </button>
           </div>
@@ -124,8 +146,10 @@ function Home() {
             />
           </div>
           <div className={styles.home_bottom}>
-            <p>16/280</p>
-            <button onClick={() => handleTweet()} id="tweet">
+            <p>{inputTweet.length}/280</p>
+            <button 
+            className={styles.btn_tweet}
+            onClick={() => handleTweet()} id="tweet">
               Tweet
             </button>
           </div>
@@ -138,7 +162,7 @@ function Home() {
       <div className={styles.content_right}>
         <p className={styles.trends}>Trends</p>
         <div className={styles.hashtag_container}>
-          Je suis un joli petit test
+          <Trends/>
         </div>
       </div>
     </main>

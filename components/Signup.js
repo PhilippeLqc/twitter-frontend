@@ -1,9 +1,11 @@
 import styles from "../styles/Signup.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router"; 
 
 function Signup(props) {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [signUpUsername, setSignUpUsername] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
   const [signUpFirstname, setSignUpFirstname] = useState("");
@@ -25,6 +27,7 @@ function Signup(props) {
           setSignUpUsername("");
           setSignUpPassword("");
           setSignUpFirstname("");
+          router.push("/homepage");
         }
       });
   };

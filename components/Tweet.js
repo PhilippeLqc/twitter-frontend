@@ -7,8 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletetweet } from '../reducers/deleted';
-
+import { deletetweet } from "../reducers/deleted";
 
 function Tweet(props) {
   const tweetDate = new Date(props.date);
@@ -20,7 +19,6 @@ function Tweet(props) {
   const diffDays = Math.round(diffHours / 24);
 
   const dispatch = useDispatch();
-
 
   const token = useSelector((state) => state.user.value);
 
@@ -37,7 +35,7 @@ function Tweet(props) {
     timeDiff = "just now";
   }
 
-//   fonction qui gere la suppression d'un tweet au clic sur l'icone poubelle
+  //   fonction qui gere la suppression d'un tweet au clic sur l'icone poubelle
 
   function handleDelete(props) {
     fetch(`http://localhost:3000/tweets/delete/${props._id}`, {
@@ -45,36 +43,46 @@ function Tweet(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        dispatch(deletetweet())
+        dispatch(deletetweet());
       });
   }
 
-// const qui gère l'affichage de l'icone poubelle
+  // const qui gère l'affichage de l'icone poubelle
 
   const showTrashIcon = props.user.token === token;
+  let heartIconStyle = { cursor: "pointer", color: "#ffffff" };
+  if (props.isLiked) {
+    heartIconStyle = { color: "#e74c3c", cursor: "pointer" };
+  }
 
   return (
     <div className={styles.main}>
       <div className={styles.top}>
         <FontAwesomeIcon
           icon={faUserCircle}
-          style={{ color: "#47a4cd", width: "8%", height: "auto" }}
+          style={{
+            color: "#47a4cd",
+            width: "50px",
+            height: "auto",
+            marginRight: "10px",
+          }}
         />
-        <p>{props.user.firstname}</p>
-        <p>@{props.user.username}</p>
-        <p>{timeDiff}</p>
+        <p className={styles.firstname}>{props.user.firstname}</p>
+        <p className={styles.username}>@{props.user.username}</p>
+        <p className={styles.time}>· {timeDiff}</p>
       </div>
       <div className={styles.middle}>
-        <p>{props.message}</p>
+        <p>
+          {props.message}
+        </p>
       </div>
       <div className={styles.bottom}>
         <div className={styles.likes}>
           <FontAwesomeIcon
             icon={faHeart}
-            style={{ color: "#ffffff", marginTop: "17px" }}
+            style={ heartIconStyle }
           />
-          <p>0</p>
-        </div>
+          <p className={styles.count}>0</p>
         {showTrashIcon && (
           <FontAwesomeIcon
             onClick={() => handleDelete(props)}
@@ -82,6 +90,7 @@ function Tweet(props) {
             style={{ color: "#ffffff" }}
           />
         )}
+        </div>
       </div>
     </div>
   );
