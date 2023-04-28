@@ -5,9 +5,10 @@ import {
   faHeart,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deletetweet } from "../reducers/deleted";
+import { addLiked } from "../reducers/liked";
 
 function Tweet(props) {
   const tweetDate = new Date(props.date);
@@ -23,6 +24,8 @@ function Tweet(props) {
   const token = useSelector((state) => state.user.value);
   const Isdeleted = useSelector((state) => state.deleted.value);
 
+  const [heartIconStyle, setHeartIconStyle] = useState({});
+
   // crée un variable timediff conditionnelle selon le temps (en min, hours, jours)
 
   let timeDiff = "";
@@ -35,7 +38,22 @@ function Tweet(props) {
   } else {
     timeDiff = "just now";
   }
-
+// couleur du coeur
+useEffect(() => {
+  fetch("http://localhost:3000/users/getUser", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      token: token,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (props.like.includes(data.data._id)) {
+        setHeartIconStyle({ color: "#e74c3c", cursor: "pointer" });
+      }
+    });
+  }, [])
   //   fonction qui gere la suppression d'un tweet au clic sur l'icone poubelle
 
   function handleDelete(props) {
@@ -70,8 +88,9 @@ function Tweet(props) {
               console.log("result:", data);
               console.log("prosId:", props._id);
             });
+          setHeartIconStyle({ color: "#e74c3c", cursor: "pointer" });
         } else {
-          console.log('elseData:', data.data._id);
+          console.log("elseData:", data.data._id);
           fetch(`http://localhost:3000/tweets/deletelike/${props._id}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
@@ -81,17 +100,15 @@ function Tweet(props) {
             .then((data) => {
               console.log("likecollection:", data);
             });
+          setHeartIconStyle({ cursor: "pointer", color: "#ffffff" });
         }
+        dispatch(addLiked());
       });
   };
-
+  console.log("coeur", heartIconStyle);
   // const qui gère l'affichage de l'icone poubelle et coeur
 
   const showTrashIcon = props.user.token === token;
-  let heartIconStyle = { cursor: "pointer", color: "#ffffff" };
-  if (props.isLiked) {
-    heartIconStyle = { color: "#e74c3c", cursor: "pointer" };
-  }
 
   return (
     <div className={styles.main}>

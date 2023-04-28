@@ -18,8 +18,8 @@ function Home() {
   const [newTweet, setNewTweet] = useState(false);
 	const dispatch = useDispatch();
 
-
   const Isdeleted = useSelector((state) => state.deleted.value);
+  const isLiked = useSelector((state) => state.liked.value);
   const user = useSelector((state) => state.user.value);
 
 // récupère les infos du user et les stocks dans des variables (username, firstname, id)
@@ -50,7 +50,7 @@ function Home() {
       .then((data) => {
         setTweets(data)
       })
-  }, [newTweet, Isdeleted]);
+  }, [newTweet, Isdeleted, isLiked]);
 
 
 
@@ -84,7 +84,7 @@ function Home() {
   // Map sur les tweets et les ajoutes dans la constante tweet
 
   const tweet = tweets.map((data, i) => {
-    return <Tweet key={i} {...data} />;
+    return <Tweet key={i} {...data}/>;
   });
 
 // Bouton logout / déconnexion
